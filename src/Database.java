@@ -1,0 +1,66 @@
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+
+public class Database implements PizzaRepository{
+
+    private final List<Pizza> pizzaMenu;
+    private final File file;
+
+    public Database() {
+        file = new File("resources/menu");
+        pizzaMenu = new ArrayList<>();
+    }
+
+    @Override
+    public Pizza createPizza(int no, String name, double price, String... ingredients) {
+        return new Pizza(no,name,price,ingredients);
+    }
+
+    @Override
+    public Iterable<Pizza> findAllPizzas() {
+        return this.pizzaMenu;
+    }
+
+    @Override
+    public Pizza findPizzaById(int id) throws NoSuchPizzaException {
+        Pizza retPizza = null;
+        for (Pizza p : pizzaMenu ) {
+            if (p.getNo()==id) {
+                return retPizza;
+            }
+        }
+        if (retPizza == null) {
+            throw new NoSuchPizzaException("No pizza by number " + id);
+        }
+        return retPizza;
+    }
+
+    @Override
+    public void savePizzaToDB(Pizza pizza) {
+
+    }
+    private void loadPizzasFromDB() {
+        //11,Hawai,Tomatsauce|ost|skinke|ananas|oregano,61
+        String line = "";
+        Pizza tmpPizza = null;
+
+        try {
+            BufferedReader br = new BufferedReader(new FileReader(file));
+
+            while((line=br.readLine())!=null) {
+                String[] lineArr = line.split(";");
+                String[] ingredients = lineArr[2].split("|");
+                tmpPizza = new Pizza(Integer.valueOf(lineArr[0]),lineArr[1],Double.valueOf(lineArr[3]),ingredients);
+                pizzaMenu.add(tmpPizza);
+            }
+        } catch (IOException e ) {
+            e.printStackTrace();
+        }
+    }
+}
