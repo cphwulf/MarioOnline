@@ -19,7 +19,7 @@ public class Server {
             ServerSocket serverSocket = new ServerSocket(8182);
 
             while(counter<limit) {
-                System.out.println("Acceping");
+                System.out.println("Accepting");
                 Socket clientSocket = serverSocket.accept();
                 clientHandlers.add(new ConnectionHandler(clientSocket));
                 counter++;
