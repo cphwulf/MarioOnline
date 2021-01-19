@@ -29,21 +29,35 @@ public class PizzaBakery extends Thread {
                 pizzas[i] = pizza;
                 break;
             }
+        }
     }
-}
 
     @Override
     public void run() {
         String bakerLine = "";
         Pizza tmpPizza = null;
         try {
-            while((bakerLine = bakerRead.readLine())!= null) {
-                addPizzaToQueue(tmpPizza);
+            while(!(bakerLine = bakerRead.readLine()).equals("bye")) {
+                int inputVal = Integer.valueOf(bakerLine);
+
+                tmpPizza = db.findPizzaById(inputVal);
+                Pizza pizza = new Pizza(tmpPizza);
+                    addPizzaToQueue(pizza);
+                    System.out.println("Pizza " + pizza.getCounter() + " added to queue " + pizza.getName());
                 System.out.println(bakerLine);
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
 
+        System.out.println("Done baking");
+        try {
+            bakerRead.close();
+            bakerWrite.close();
+            System.out.println("The server is shut down!");
+        } catch (IOException e) {
+            System.out.println("err");
+            e.printStackTrace();
+        }
     }
 }

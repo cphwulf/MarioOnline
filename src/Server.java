@@ -35,7 +35,7 @@ public class Server {
             while(counter<limit) {
                 System.out.println("Accepting");
                 Socket clientSocket = serverSocket.accept();
-                clientHandlers.add(new ConnectionHandler(clientSocket));
+                clientHandlers.add(new ConnectionHandler(clientSocket, pizzas));
                 counter++;
             }
         } catch (IOException e) {

@@ -15,6 +15,7 @@ public class Database implements PizzaRepository{
     public Database() {
         file = new File("resources/menu");
         pizzaMenu = new ArrayList<>();
+        this.loadPizzasFromDB();
     }
 
     @Override
@@ -28,15 +29,14 @@ public class Database implements PizzaRepository{
     }
 
     @Override
-    public Pizza findPizzaById(int id) throws NoSuchPizzaException {
+    public Pizza findPizzaById(int id) {
         Pizza retPizza = null;
         for (Pizza p : pizzaMenu ) {
+            System.out.println(p.getNo() + " and " + id);
             if (p.getNo()==id) {
-                return retPizza;
+                retPizza = p;
+                return  retPizza;
             }
-        }
-        if (retPizza == null) {
-            throw new NoSuchPizzaException("No pizza by number " + id);
         }
         return retPizza;
     }
@@ -54,7 +54,7 @@ public class Database implements PizzaRepository{
             BufferedReader br = new BufferedReader(new FileReader(file));
 
             while((line=br.readLine())!=null) {
-                String[] lineArr = line.split(";");
+                String[] lineArr = line.split(",");
                 String[] ingredients = lineArr[2].split("|");
                 tmpPizza = new Pizza(Integer.valueOf(lineArr[0]),lineArr[1],Double.valueOf(lineArr[3]),ingredients);
                 pizzaMenu.add(tmpPizza);

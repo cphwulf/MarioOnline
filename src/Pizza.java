@@ -13,8 +13,6 @@ public class Pizza {
     private List<String> ingredients;
 
     public Pizza(int no, String name, double price, String... ingredients) {
-        this.time = LocalDateTime.now();
-        this.pizzaID = counter;
         this.no = no;
         this.name = name;
         this.price = price;
@@ -22,10 +20,19 @@ public class Pizza {
         for(String ingredient : ingredients){
             this.ingredients.add(ingredient);
         }
+    }
+    public Pizza(Pizza pizza) {
+        this.time = LocalDateTime.now();
+        this.pizzaID = counter;
+        this.no = pizza.getNo();
+        this.name = pizza.getName();
+        this.price = pizza.getPrice();
+        this.ingredients = pizza.getIngredients();
         counter++;
     }
 
     public int getNo() { return no; }
+    public int getCounter() { return  pizzaID;}
     public String getName() { return name; }
     public double getPrice() { return price; }
     public List<String> getIngredients() { return ingredients; }
