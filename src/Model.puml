@@ -1,26 +1,48 @@
 @startuml
 
-abstract class AbstractList
-abstract AbstractCollection
-interface List
-interface Collection
+participant PizzaProducer
+entity Queue
 
-List <|-- AbstractList
-Collection <|-- AbstractCollection
+Customer->Queue : dequeue
+activate Customer
+...
+PizzaProducer->Queue : enqueue
+activate PizzaProducer
+Queue-->Customer
+deactivate Customer
+Queue-->PizzaProducer
+deactivate PizzaProducer
+/'
+Person -> MicrowaveOven : Cook Food
+activate PizzaProducer
+par
+PizzaProducer -> PizzaProducer : Bake Pizza
+else
+PizzaProducer -> PizzaProducer : Bake Pizza
+end
 
-Collection <|- List
-AbstractCollection <|- AbstractList
-AbstractList <|-- ArrayList
+activate MicrowaveOven
+par
+MicrowaveOven -> MicrowaveOven : Activate Client
+else
+MicrowaveOven -> MicrowaveOven : Activate Client
+end
 
-class ArrayList {
-Object[] elementData
-size()
-}
 
-enum TimeUnit {
-DAYS
-HOURS
-MINUTES
-}
+MicrowaveOven --> Person : Delicious Food
+deactivate MicrowaveOven
+participant "Client" as C
+participant "Server" as S
+participant "Third Party" as 3PT
+
+C -> S++: login
+S -> S: do I know you?
+S -> 3PT++: give me money for client
+return here you have money
+S ->> S++ #005500: compute usage
+S ->> 3PT: notify about computation details
+deactivate S
+return money
+'/
 
 @enduml
