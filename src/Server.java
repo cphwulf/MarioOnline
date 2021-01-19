@@ -8,7 +8,8 @@ public class Server {
     Socket socket;
     int limit;
     int counter;
-    Pizza[] pizzas;
+    //Pizza[] pizzas;
+    ArrayList<Pizza> pizzas;
     PizzaBakery pizzaBakery;
     private final int MAXPRODUCTION = 400;
 
@@ -16,7 +17,8 @@ public class Server {
         counter = 0;
         limit = 2;
         db = new Database();
-        pizzas = new Pizza[MAXPRODUCTION];
+        //pizzas = new Pizza[MAXPRODUCTION];
+        pizzas = new ArrayList<>();
     }
     public void runServer() {
         ArrayList<ConnectionHandler> clientHandlers = new ArrayList<>();

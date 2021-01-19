@@ -1,15 +1,17 @@
 import java.io.*;
 import java.net.Socket;
 import java.sql.Connection;
+import java.util.ArrayList;
 
 public class ConnectionHandler extends Thread{
     Socket socket;
     BufferedReader fromClient;
     PrintWriter toClient;
     String protokolIO;
-    Pizza[] pizzas;
+    //Pizza[] pizzas;
+    ArrayList<Pizza> pizzas;
 
-    public ConnectionHandler(Socket socket, Pizza[] pizzas) throws IOException {
+    public ConnectionHandler(Socket socket, ArrayList<Pizza> pizzas) throws IOException {
         this.protokolIO = "";
         this.socket = socket;
         this.pizzas = pizzas;
@@ -23,17 +25,16 @@ public class ConnectionHandler extends Thread{
             while (!((protokolIO = fromClient.readLine()).equalsIgnoreCase("bye"))) {
                 boolean picked = false;
                 Pizza tmpPizza = null;
-                for(int i=0;i<pizzas.length;i++) {
+                for(int i=0;i<pizzas.size();i++) {
 
-                    if (pizzas[i]!=null && !picked) {
-                        System.out.println("Sending " + pizzas[i].getName());
-                        toClient.println(pizzas[i].getName() + " no. " + pizzas[i].getNo() + "," + pizzas[i].getCounter());
+                    if (pizzas.get(i) != null && !picked) {
+                        toClient.println(pizzas.get(i).getName() + " no. " + pizzas.get(i).getNo() + "," + pizzas.get(i).getCounter());
 
                         try {
                             int val = Integer.valueOf(protokolIO);
-                            if (pizzas[i].getNo() == val) {
-                                System.out.println("took pizza count " + pizzas[i].getCounter() + " no " + pizzas[i].getNo() + ", "+pizzas[i].getName());
-                                pizzas[i] = null;
+                            if (pizzas.get(i).getNo() == val) {
+                                System.out.println("took pizza count " + pizzas.get(i).getCounter() + " no " + pizzas.get(i).getNo() + ", "+pizzas.get(i).getName());
+                                pizzas.add(null);
                                 picked = true;
                             }
                         } catch (IllegalArgumentException e) {

@@ -1,17 +1,19 @@
 import java.io.*;
 import java.net.Socket;
+import java.util.ArrayList;
 import java.util.List;
 
 public class PizzaBakery extends Thread {
     Socket socket;
     List<Pizza> menu;
-    Pizza[] pizzas;
+    //Pizza[] pizzas;
+    ArrayList<Pizza> pizzas;
     BufferedReader bakerRead;
     PrintWriter bakerWrite;
     Database db;
 
 
-    public PizzaBakery(Socket socket, Pizza[] pizzas, Database db) {
+    public PizzaBakery(Socket socket, ArrayList<Pizza> pizzas, Database db) {
         this.pizzas = pizzas;
         this.menu = menu;
         this.db = db;
@@ -24,6 +26,11 @@ public class PizzaBakery extends Thread {
     }
 
     public void addPizzaToQueue(Pizza pizza) {
+        pizzas.add(pizza);
+    }
+
+    /*
+    public void addPizzaToQueue(Pizza pizza) {
         for(int i = 0; i < pizzas.length; i++) {
             if(pizzas[i] == null) {
                 pizzas[i] = pizza;
@@ -31,6 +38,8 @@ public class PizzaBakery extends Thread {
             }
         }
     }
+
+     */
 
     @Override
     public void run() {
