@@ -16,9 +16,9 @@ deactivate PizzaProducer
 Person -> MicrowaveOven : Cook Food
 activate PizzaProducer
 par
-PizzaProducer -> PizzaProducer : Bake Pizza
+PizzaProducer -> PizzaProducer : Bake domain.Pizza
 else
-PizzaProducer -> PizzaProducer : Bake Pizza
+PizzaProducer -> PizzaProducer : Bake domain.Pizza
 end
 
 activate MicrowaveOven
@@ -32,7 +32,7 @@ end
 MicrowaveOven --> Person : Delicious Food
 deactivate MicrowaveOven
 participant "Client" as C
-participant "Server" as S
+participant "entries.Server" as S
 participant "Third Party" as 3PT
 
 C -> S++: login

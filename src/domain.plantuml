@@ -132,18 +132,18 @@ title __DOMAIN's Class Diagram__\n
 
 
   namespace chadchat.entries {
-    class chadchat.entries.Server {
+    class chadchat.entries.entries.Server {
         {static} + main()
     }
   }
 
 namespace chadchat.infrastructure {
-    class chadchat.infrastructure.Database {
+    class chadchat.infrastructure.infrastructure.Database {
         {static} - DB_URL : String
         {static} - JDBC_DRIVER : String
         {static} - USER : String
         {static} - version : int
-        + Database()
+        + infrastructure.Database()
         + createMessage()
         + createUser()
         + findAllMessages()
@@ -187,6 +187,6 @@ namespace chadchat.ui {
   chadchat.domain.UserRepository o-- chadchat.domain.UserFactory
   chadchat.api.ChadChat o-- chadchat.api.ChatRepository : users
   chadchat.api.ChadChat +-down- chadchat.api.ChadChat.MessageNotifier
-  chadchat.infrastructure.Database .up.|> chadchat.api.ChatRepository
+  chadchat.infrastructure.infrastructure.Database .up.|> chadchat.api.ChatRepository
 
 @enduml

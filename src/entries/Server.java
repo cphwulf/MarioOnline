@@ -1,3 +1,9 @@
+package entries;
+
+import domain.Pizza;
+import infrastructure.Database;
+import ui.ConnectionHandler;
+
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -8,7 +14,7 @@ public class Server {
     Socket socket;
     int limit;
     int counter;
-    //Pizza[] pizzas;
+    //domain.Pizza[] pizzas;
     ArrayList<Pizza> pizzas;
     PizzaBakery pizzaBakery;
     private final int MAXPRODUCTION = 400;
@@ -17,7 +23,7 @@ public class Server {
         counter = 0;
         limit = 2;
         db = new Database();
-        //pizzas = new Pizza[MAXPRODUCTION];
+        //pizzas = new domain.Pizza[MAXPRODUCTION];
         pizzas = new ArrayList<>();
     }
     public void runServer() {

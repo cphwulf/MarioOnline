@@ -1,14 +1,18 @@
+package ui;
+
+import domain.Pizza;
+
 import java.io.*;
 import java.net.Socket;
-import java.sql.Connection;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 public class ConnectionHandler extends Thread{
     Socket socket;
     BufferedReader fromClient;
     PrintWriter toClient;
     String protokolIO;
-    //Pizza[] pizzas;
+    //domain.Pizza[] pizzas;
     ArrayList<Pizza> pizzas;
 
     public ConnectionHandler(Socket socket, ArrayList<Pizza> pizzas) throws IOException {
@@ -25,16 +29,18 @@ public class ConnectionHandler extends Thread{
             while (!((protokolIO = fromClient.readLine()).equalsIgnoreCase("bye"))) {
                 boolean picked = false;
                 Pizza tmpPizza = null;
-                for(int i=0;i<pizzas.size();i++) {
-
-                    if (pizzas.get(i) != null && !picked) {
-                        toClient.println(pizzas.get(i).getName() + " no. " + pizzas.get(i).getNo() + "," + pizzas.get(i).getCounter());
+                Iterator<Pizza> pizzaIterator = pizzas.iterator();
+                //for(int i=0;i<pizzas.size();i++) {
+                while(pizzaIterator.hasNext()) {
+                    Pizza p = pizzaIterator.next();
+                    if (!picked) {
+                        toClient.println(p.getName() + " no. " + p.getNo() + "," + p.getCounter());
 
                         try {
                             int val = Integer.valueOf(protokolIO);
-                            if (pizzas.get(i).getNo() == val) {
-                                System.out.println("took pizza count " + pizzas.get(i).getCounter() + " no " + pizzas.get(i).getNo() + ", "+pizzas.get(i).getName());
-                                pizzas.add(null);
+                            if (p.getNo() == val) {
+                                System.out.println("took pizza count " + p.getCounter() + " no " + p.getNo() + ", "+p.getName());
+                                pizzaIterator.remove();
                                 picked = true;
                             }
                         } catch (IllegalArgumentException e) {

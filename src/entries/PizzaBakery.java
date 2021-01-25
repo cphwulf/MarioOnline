@@ -1,3 +1,8 @@
+package entries;
+
+import domain.Pizza;
+import infrastructure.Database;
+
 import java.io.*;
 import java.net.Socket;
 import java.util.ArrayList;
@@ -6,7 +11,7 @@ import java.util.List;
 public class PizzaBakery extends Thread {
     Socket socket;
     List<Pizza> menu;
-    //Pizza[] pizzas;
+    //domain.Pizza[] pizzas;
     ArrayList<Pizza> pizzas;
     BufferedReader bakerRead;
     PrintWriter bakerWrite;
@@ -30,7 +35,7 @@ public class PizzaBakery extends Thread {
     }
 
     /*
-    public void addPizzaToQueue(Pizza pizza) {
+    public void addPizzaToQueue(domain.Pizza pizza) {
         for(int i = 0; i < pizzas.length; i++) {
             if(pizzas[i] == null) {
                 pizzas[i] = pizza;
@@ -52,7 +57,7 @@ public class PizzaBakery extends Thread {
                 tmpPizza = db.findPizzaById(inputVal);
                 Pizza pizza = new Pizza(tmpPizza);
                     addPizzaToQueue(pizza);
-                    System.out.println("Pizza " + pizza.getCounter() + " added to queue " + pizza.getName());
+                    System.out.println("domain.Pizza " + pizza.getCounter() + " added to queue " + pizza.getName());
                 System.out.println(bakerLine);
             }
         } catch (IOException e) {

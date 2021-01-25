@@ -1,3 +1,8 @@
+package infrastructure;
+
+import domain.Pizza;
+import domain.PizzaRepository;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -7,7 +12,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-public class Database implements PizzaRepository{
+public class Database implements PizzaRepository {
 
     private final List<Pizza> pizzaMenu;
     private final File file;
