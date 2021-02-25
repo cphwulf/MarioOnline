@@ -3,10 +3,8 @@ package infrastructure;
 import domain.Pizza;
 import domain.PizzaRepository;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
+import java.nio.charset.StandardCharsets;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -54,9 +52,13 @@ public class Database implements PizzaRepository {
         //11,Hawai,Tomatsauce|ost|skinke|ananas|oregano,61
         String line = "";
         Pizza tmpPizza = null;
+        ClassLoader classloader = Thread.currentThread().getContextClassLoader();
+        InputStream is = classloader.getResourceAsStream("menu");
+        InputStreamReader streamReader = new InputStreamReader(is, StandardCharsets.UTF_8);
 
         try {
-            BufferedReader br = new BufferedReader(new FileReader(file));
+            //BufferedReader br = new BufferedReader(new FileReader(file));
+            BufferedReader br = new BufferedReader(streamReader);
 
             while((line=br.readLine())!=null) {
                 String[] lineArr = line.split(",");

@@ -55,4 +55,8 @@ public class ConnectionHandler extends Thread{
         }
         System.out.println("Got " + protokolIO);
     }
+
+    public void handleUserInput() {
+
+    }
 }
